@@ -1,0 +1,46 @@
+# Determining the Diversity within a sample (alpha diversity)
+ 
+- Alpha diversity: tells about the richness of species diversity within our sample
+
+### Computing alpha diversity by generating rarefraction curves
+
+- Rarefraction curves accounts for different number of sequences per saample
+
+```{r error=TRUE}
+# generate a file with parameters to be passed to the QIIME rarefaction script
+echo alpha_diversity:metrics shannon,PD_whole_tree,chao1,observed_species > otus/alpha_params.txt
+
+# make sure your file has been written to properly
+less otus/alpha_params.txt
+
+alpha_rarefaction.py -i otus/otu_table.biom -o otus/wf_arare -t otus/rep_set.tre -m Data/RiceMappingFile.txt -p otus/alpha_params.txt
+
+# -m passes the mapping information such as treatment or cultivar
+# -p passes the methods used to calculate the alpha diversity
+# -t passes the path to the phylogenetic tree file
+```
+ 
+# Determining the  Diversity Between Samples (beta diversity)
+
+- Beta diversity: differentiation amongst habitats
+- To quantify beta diversity, QIIME calculates the pairwise dissimilarity between samples resulting in a distance matrix.
+
+### Computing the beta diversity and generating PCoA plots and distance matrix
+
+```{r error=TRUE}
+beta_diversity_through_plots.py -i otus/otu_table.biom -m Data/RiceMappingFile.txt -o otus/wf_bdiv_even289 -t otus/rep_set.tre -e 289
+
+# -e sets the sequencing depth per sample
+# seq. depth was set 289 here because that is the minimum number of sequences among any sample. It will ensure there is not bias by some samples having higher read depth than others
+
+```
+
+### Creating UPGMA clustering trees utilizing beta diversity data (weighted and unweighted)
+
+```{r error=TRUE}
+upgma_cluster.py -i otus/wf_bdiv_even289/unweighted_unifrac_dm.txt -o unweighted_upgma.tre
+upgma_cluster.py -i otus/wf_bdiv_even289/weighted_unifrac_dm.txt -o weighted_upgma.tre
+
+```
+
+### Use Phylodendron to visualize the data

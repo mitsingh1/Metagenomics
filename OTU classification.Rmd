@@ -1,0 +1,54 @@
+
+# Downloading the data
+
+```{r error=TRUE}
+wget http://jnmaloof.github.io/BIS180L_web/data/MetaGenomeData.tar.gz
+tar -xvzf MetaGenomeData.tar.gz
+
+# RiceSeqs.fna -- contains the reads
+# RiceMappingFile.txt -- sample information
+```
+
+# Classifying Various Microbiome Sequences into OTUs using QIIME
+
+```{r error=TRUE}
+# OTUs : cluster of reads with 97% 15S rRNA sequence identity
+
+pick_de_novo_otus.py -i Data/RiceSeqs.fna -o otus
+
+#-i : input files with our DNA sequences 
+# o: output folder
+```
+
+# Viewing statistics of the OTU table (a binary file) 
+
+```{r error=TRUE}
+biom summarize-table -i otus/otu_table.biom > otus/otu_class.txt # summarizes the stats and saves the file
+```
+
+# Making heatmap of OTUs per sample
+
+```{r error=TRUE}
+# Each row corresponds to an OTU
+# Each column corresponds to a sample
+
+# clustered by UPGMA hierarchical clustering
+
+make_otu_heatmap.py -i otus/otu_table.biom -o otus/OTU_Heatmap.pdf
+
+# can copy files to the PC using 'WinSCP' command
+
+```
+ 
+- The higher the relative abundance of an OTU in a sample, the more intense the color at the corresponding position in the heat map
+
+# Increasing the resolution and summarizing the communities by their taxonomic composition
+
+```{r error=TRUE}
+summarize_taxa_through_plots.py -i otus/otu_table.biom -o otus/wf_taxa_summary -m Data/RiceMappingFile.txt
+
+# creates box and area plots
+#-m provides the path to the mapping file with sample meta data
+
+```
+
