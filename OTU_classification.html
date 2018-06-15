@@ -121,8 +121,8 @@ $(document).ready(function () {
 </div>
 
 
-<div id="downloading-the-data" class="section level1">
-<h1>Downloading the data</h1>
+<div id="downloading-the-data" class="section level2">
+<h2>Downloading the data</h2>
 <pre class="r"><code>wget http://jnmaloof.github.io/BIS180L_web/data/MetaGenomeData.tar.gz
 tar -xvzf MetaGenomeData.tar.gz
 
@@ -132,8 +132,8 @@ tar -xvzf MetaGenomeData.tar.gz
 ## 1: wget http
 ##          ^</code></pre>
 </div>
-<div id="classifying-various-microbiome-sequences-into-otus-using-qiime" class="section level1">
-<h1>Classifying Various Microbiome Sequences into OTUs using QIIME</h1>
+<div id="classifying-various-microbiome-sequences-into-otus-using-qiime" class="section level2">
+<h2>Classifying Various Microbiome Sequences into OTUs using QIIME</h2>
 <pre class="r"><code># OTUs : cluster of reads with 97% 15S rRNA sequence identity
 
 pick_de_novo_otus.py -i Data/RiceSeqs.fna -o otus
@@ -145,15 +145,15 @@ pick_de_novo_otus.py -i Data/RiceSeqs.fna -o otus
 ## 3: pick_de_novo_otus.py -i Data
 ##                            ^</code></pre>
 </div>
-<div id="viewing-statistics-of-the-otu-table-a-binary-file" class="section level1">
-<h1>Viewing statistics of the OTU table (a binary file)</h1>
+<div id="viewing-statistics-of-the-otu-table-a-binary-file" class="section level2">
+<h2>Viewing statistics of the OTU table (a binary file)</h2>
 <pre class="r"><code>biom summarize-table -i otus/otu_table.biom &gt; otus/otu_class.txt # summarizes the stats and saves the file</code></pre>
 <pre><code>## Error: &lt;text&gt;:1:6: unexpected symbol
 ## 1: biom summarize
 ##          ^</code></pre>
 </div>
-<div id="making-heatmap-of-otus-per-sample" class="section level1">
-<h1>Making heatmap of OTUs per sample</h1>
+<div id="making-heatmap-of-otus-per-sample" class="section level2">
+<h2>Making heatmap of OTUs per sample</h2>
 <pre class="r"><code># Each row corresponds to an OTU
 # Each column corresponds to a sample
 
@@ -170,8 +170,8 @@ make_otu_heatmap.py -i otus/otu_table.biom -o otus/OTU_Heatmap.pdf
 <li>The higher the relative abundance of an OTU in a sample, the more intense the color at the corresponding position in the heat map</li>
 </ul>
 </div>
-<div id="increasing-the-resolution-and-summarizing-the-communities-by-their-taxonomic-composition" class="section level1">
-<h1>Increasing the resolution and summarizing the communities by their taxonomic composition</h1>
+<div id="increasing-the-resolution-and-summarizing-the-communities-by-their-taxonomic-composition" class="section level2">
+<h2>Increasing the resolution and summarizing the communities by their taxonomic composition</h2>
 <pre class="r"><code>summarize_taxa_through_plots.py -i otus/otu_table.biom -o otus/wf_taxa_summary -m Data/RiceMappingFile.txt
 
 # creates box and area plots

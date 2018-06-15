@@ -1,5 +1,5 @@
 
-# Downloading the data
+## Downloading the data
 
 ```{r error=TRUE}
 wget http://jnmaloof.github.io/BIS180L_web/data/MetaGenomeData.tar.gz
@@ -9,7 +9,7 @@ tar -xvzf MetaGenomeData.tar.gz
 # RiceMappingFile.txt -- sample information
 ```
 
-# Classifying Various Microbiome Sequences into OTUs using QIIME
+## Classifying Various Microbiome Sequences into OTUs using QIIME
 
 ```{r error=TRUE}
 # OTUs : cluster of reads with 97% 15S rRNA sequence identity
@@ -20,13 +20,13 @@ pick_de_novo_otus.py -i Data/RiceSeqs.fna -o otus
 # o: output folder
 ```
 
-# Viewing statistics of the OTU table (a binary file) 
+## Viewing statistics of the OTU table (a binary file) 
 
 ```{r error=TRUE}
 biom summarize-table -i otus/otu_table.biom > otus/otu_class.txt # summarizes the stats and saves the file
 ```
 
-# Making heatmap of OTUs per sample
+## Making heatmap of OTUs per sample
 
 ```{r error=TRUE}
 # Each row corresponds to an OTU
@@ -42,7 +42,7 @@ make_otu_heatmap.py -i otus/otu_table.biom -o otus/OTU_Heatmap.pdf
  
 - The higher the relative abundance of an OTU in a sample, the more intense the color at the corresponding position in the heat map
 
-# Increasing the resolution and summarizing the communities by their taxonomic composition
+## Increasing the resolution and summarizing the communities by their taxonomic composition
 
 ```{r error=TRUE}
 summarize_taxa_through_plots.py -i otus/otu_table.biom -o otus/wf_taxa_summary -m Data/RiceMappingFile.txt
